@@ -1,12 +1,7 @@
 import re
-
-print(r'''
- ____  _     _  
-| __ )(_) __| | 
-|  _ \| |/ _` | 
-| |_) | | (_| | 
-|____/|_|\__,_| 
-''')
+# from PythonCourse_Day9 import art
+import art
+print(art.welcoming)
 
 def find_highst_bidder(bidder):
     max = 0
