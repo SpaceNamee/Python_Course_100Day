@@ -7,6 +7,18 @@ print(r'''
 | |_) | | (_| | 
 |____/|_|\__,_| 
 ''')
+
+def find_highst_bidder(bidder):
+    max = 0
+    winner = 'noone'
+    for key in bidder:
+        if bidder[key] > max:
+            max = bidder[key]
+            winner = key
+        elif bidder[key] == max:
+            winner += " " + key
+    print(f"Winner: {winner} bid: {max}")
+
 bidder = {}
 turn = True
 
@@ -18,21 +30,14 @@ while turn:
         continue
     bidder[name] = int(bid)
     while True:
-        another_bidder = input("There is another bidder? (yes, no): ")
+        another_bidder = input("There is another bidder? (yes, no): ").lower()
         if another_bidder == "no":
-            max = 0
-            winner = 'noone'
-            for key in bidder:
-                if bidder[key] > max:
-                    max = bidder[key]
-                    winner = key
-                elif bidder[key] == max:
-                    winner += " " + key
+            find_highst_bidder(bidder)
             turn = False
-            print(f"Winner: {winner} bid: {max}")
             break
         elif another_bidder == "yes":
             print('\n' * 1000)
             break
         else:
             print("Invalid input.")
+
