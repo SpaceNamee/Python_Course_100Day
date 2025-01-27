@@ -32,6 +32,7 @@ while turn:
             print(f"Winner: {winner} bid: {max}")
             break
         elif another_bidder == "yes":
+            print('\n' * 1000)
             break
         else:
             print("Invalid input.")
