@@ -40,10 +40,23 @@ def calc(num1, num2, operation):
         rez = num1 / num2
 
     print(f"{num1} {operation} {num2} = {rez}")
+    return rez
 
-num1 = get_number("1")
-operation = get_operation()
-num2 = get_number("2")
-calc(num1, num2, operation)
+def get_rez(input_num1, input_operation, input_num2):
+    num1 = input_num1
+    operation = input_operation
+    num2 = input_num2
+    return calc(num1, num2, operation)
+
+rez = get_rez(get_number("1"), get_operation(), get_number("2"))
+while True:
+    calc_mode = input(f"Type 'y' to continue calculating with {rez}, or type 'n' to start a new calculation: ")
+    if calc_mode == 'y':
+        rez = get_rez(rez, get_operation(), get_number("2"))
+    elif calc_mode == 'n':
+        rez = get_rez(get_number("1"), get_operation(), get_number("2"))
+    else:
+        print("Invalid input.")
+
 
 
