@@ -18,16 +18,41 @@ cards_value = {
     "J" : 10,
     "Q" : 10,
     "K" : 10,
-    "A" : 10
+    "A" : 11
 }
 suits = ["Spades","Hearts" ,"Diamonds", "Clubs" ]
 cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 """Піка, Черва. Бубна, Хреста"""
 
+
+
+# def check_pairs():
+
 def hand_out_card(dib=0):
+    numbers = find_match_card()
+
+    player_cards = [numbers[0]]
+    player_cards_suits = [numbers[1]]
+
+    numbers = find_match_card()
+
+    player_cards.append(numbers[0])
+    player_cards_suits.append(numbers[1])
+
+    #
     player_dip = [dib]
-    player_cards = list(random.randint(len(cards), size=2))
-    player_cards_suits = list(random.randint(len(suits), size=2))
+    # player_cards = list(random.randint(len(cards), size=2))
+    # player_cards_suits = list(random.randint(len(suits), size=2))
+    #
+    # while True:
+    #     if player_cards[0] == player_cards[1] and player_cards_suits[0] == player_cards_suits[1]:
+    #         player_cards[1] = random.randint(len(cards))
+    #         player_cards_suits[1] = random.randint(len(suits))
+    #     else:
+    #         break
+    #
+    # is_using_pairs.append(player_cards)
+    # is_using_pairs.append(player_cards_suits)
     player  = [player_dip, player_cards, player_cards_suits]
     return player
 """Players отримують карти"""
@@ -60,10 +85,31 @@ def is_blackjack(player):
         print("Dealer: LOOSE")
         return True
 
+def find_match_card():
+    switch = True
+    a = random.randint(len(cards))
+    b = random.randint(len(suits))
+    while switch:
+        switch = False
+
+        for i in range(len(is_using_pairs[1])):
+            if is_using_pairs[0][i] == a and is_using_pairs[1][i] == b:
+                switch = True
+
+                a = random.randint(len(cards))
+                b = random.randint(len(suits))
+    is_using_pairs[0].append(a)
+    is_using_pairs[1].append(b)
+
+    return [a,b]
 
 def hit(player):
-    player[1].append(random.randint(len(cards)))
-    player[2].append(random.randint(len(suits)))
+    numbers = find_match_card()
+
+    player[1].append(numbers[0])
+    player[2].append(numbers[1])
+    # player[1].append(random.randint(len(cards)))
+    # player[2].append(random.randint(len(suits)))
 
 
 def is_over_21(player):
@@ -159,11 +205,12 @@ while True:
 
 player_balance = 1000
 
+
 while start_game:
     player_bid = int(input("Enter bid: "))
+    is_using_pairs = [[-1], [-1]]
     player_balance = play_round(player_bid, player_balance)
     print(f"Balance: {player_balance}")
     check_continue = input("Continue? (yes/no): ")
     if check_continue == "no":
         break
-
