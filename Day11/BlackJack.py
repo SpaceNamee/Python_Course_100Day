@@ -1,4 +1,5 @@
 from numpy import random
+import re
 # Роздаю карти
 # обераю опцію Hit, stand, split
 # Розкриваю карти dealer's і обраховую
@@ -145,6 +146,8 @@ def stay(player, dealer):
         return False
     elif score_dealer == score_player:
         print("\nDraw")
+        return None
+
 
 # Цикл однієї гри
 def play_round(bid, balance):
@@ -178,11 +181,14 @@ def play_round(bid, balance):
             print_cards(dealer, "Dealer")
             print_cards(player_1, "PLayer_1")
 
-            if stay(player_1, dealer):
+            stage = stay(player_1, dealer)
+
+            if stage:
                 balance += bid
+            elif stage is None:
+                balance = balance
             else:
                 balance -= bid
-
             continue_round = False
         else:
             print("Invalid input.")
@@ -205,12 +211,25 @@ while True:
 
 player_balance = 1000
 
-
+def get_num(prompt):
+    while True:
+        a = input(prompt)
+        if re.search('^[0-9]+$', a) is not None:
+            break
+    return a
 while start_game:
-    player_bid = int(input("Enter bid: "))
+
+    player_bid = get_num("Enter dib: ")
     is_using_pairs = [[-1], [-1]]
     player_balance = play_round(player_bid, player_balance)
     print(f"Balance: {player_balance}")
-    check_continue = input("Continue? (yes/no): ")
-    if check_continue == "no":
-        break
+    while True:
+        check_continue = input("Continue? (yes/no): ")
+        if check_continue == "no":
+            start_game = False
+            break
+        elif check_continue == "yes":
+            break
+        else:
+            print("Invalid input.")
+
