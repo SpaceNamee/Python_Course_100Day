@@ -61,6 +61,12 @@ def hand_out_card(dib=0):
 def print_cards(player, name, mode=0):
     print()
     print(f"{name}:")
+    step = 0
+    # while step <= len(player) - 1:
+    #         for j in range(len(player[step+1]) - mode):
+    #             print(cards[player[step+1][j]] + " " + suits[player[step+2][j]])
+    #         step += 3
+
     for i in range(len(player[1]) - mode):
         print(cards[player[1][i]] + " " + suits[player[2][i]])
 
@@ -79,6 +85,12 @@ def calc_score(player, mode=0):
         score += cards_value[cards[player[1][i]]]
     return score
 
+def get_num(prompt):
+    while True:
+        a = input(prompt)
+        if re.search('^[0-9]+$', a) is not None:
+            break
+    return a
 
 def is_blackjack(player):
     if (cards[player[1][0]] == "A" and cards_value[cards[player[1][1]]] == 10) or (cards[player[1][1]] == "A" and cards_value[cards[player[1][0]]] == 10):
@@ -148,6 +160,23 @@ def stay(player, dealer):
         print("\nDraw")
         return None
 
+def split(player :list, balance):
+    cards_hand_2 = player[1].pop()
+    cards_suit_hand_2 = player[2].pop()
+
+    reminder = player[0] % 2
+    if reminder:
+        player[0] -= reminder
+        balance += reminder
+
+    splitting_balance = player[0] / 2
+    player[0] = splitting_balance
+
+    player.append([splitting_balance])
+    player.append(cards_hand_2)
+    player.append(cards_suit_hand_2)
+
+    return balance
 
 # Цикл однієї гри
 def play_round(bid, balance):
@@ -163,7 +192,11 @@ def play_round(bid, balance):
 
     while continue_round:
         print()
-        player_input = input("Choose option 'hit', 'stay' or 'q' - exit: ")
+        if player_1[1][0] == player_1[1][1]:
+            player_input = input("Choose option 'hit', 'stay', 'split' or 'q' - exit: ")
+        else:
+            player_input = input("Choose option 'hit', 'stay' or 'q' - exit: ")
+
         if player_input == 'q':
             continue_round = False
 
@@ -190,6 +223,14 @@ def play_round(bid, balance):
             else:
                 balance -= bid
             continue_round = False
+        elif player_input == "split":
+            step = 0
+            while step <= len(player_1):
+                print_cards()
+                if player_1[1][0] == player_1[1][1]:
+                    player_input = input("Choose option 'hit', 'stay', 'split' or 'q' - exit: ")
+                else:
+                    player_input = input("Choose option 'hit', 'stay' or 'q' - exit: ")
         else:
             print("Invalid input.")
 
@@ -211,12 +252,6 @@ while True:
 
 player_balance = 1000
 
-def get_num(prompt):
-    while True:
-        a = input(prompt)
-        if re.search('^[0-9]+$', a) is not None:
-            break
-    return a
 while start_game:
 
     player_bid = get_num("Enter dib: ")
