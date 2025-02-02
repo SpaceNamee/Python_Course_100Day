@@ -57,15 +57,8 @@ def hand_out_card(dib=0, balance =1000):
 def print_cards(player, name, mode=0):
     print()
     print(f"{name}:")
-    # step = 0
-    # while step <= len(player) - 1:
-    #         for j in range(len(player[step+1]) - mode):
-    #             print(cards[player[step+1][j]] + " " + suits[player[step+2][j]])
-    #         step += 3
-
     for i in range(len(player[1]) - mode):
         print(cards[player[1][i]] + " " + suits[player[2][i]])
-
 
     score = calc_score(player, mode)
     print(f"Score: {score}")
@@ -77,15 +70,11 @@ def calc_score(player, mode=0):
         if cards[player[1][i]] == "A":
             if score + cards_value[cards[player[1][i]]] > 21:
                 count_a += 1
-                continue
         score += cards_value[cards[player[1][i]]]
-    # TODO:
-    #  this system is reliable?
-    for i in range(count_a):
-        if score + 11 > 21:
-            score += 1
-        else:
-            score += 11
+
+    while score > 21 and count_a:
+        score -= 10
+        count_a -= 1
     return score
 
 def get_num(prompt):
@@ -169,26 +158,34 @@ def play(player, dealer, players_stage):
     dib = player[0][0]
     balance = player[0][1]
 
-    if is_blackjack(player):
-        continue_round = False
-        players_stage.append(True)
-        balance += dib
-        print("BLACKJACK!!!")
+    if len(player) == 2:
+        if is_blackjack(player):
+            continue_round = False
+            if is_blackjack(dealer):
+                players_stage.append(None)
+            else:
+                players_stage.append(True)
+                balance += dib * 1.5
+
+            print("BLACKJACK!!!")
 
     while continue_round:
         print()
-        if player[1][0] == player[1][1] and len(player[1]) == 2:
-            player_input = input("Choose option 'hit', 'stay', 'double down', 'split' or 'q' - exit: ")
+        player_input = ''
+        if len(player) == 2:
+            if player[1][0] == player[1][1]:
+                player_input = input("Choose option 'hit', 'stay', 'double down', 'split' or 'q' - exit: ")
         else:
             player_input = input("Choose option 'hit', 'stay', 'double down' or 'q' - exit: ")
 
         if player_input == 'q':
+            players_stage.append(False)
+            balance -= dib
             continue_round = False
 
         elif player_input == 'hit':
             hit(player)
 
-            # print_cards(dealer, "Dealer", 1)
             print_cards(player, name)
 
             if is_over_21(player):
@@ -227,12 +224,15 @@ def play(player, dealer, players_stage):
             ace_exception = False
             if player[0][1][0] == player[1][1][0] and cards[player[1][1][0]] == "A":
                 ace_exception = True
+
             for i in range(len(player)):
                 if " Hand " not in name:
                     name += " Hand 0"
                 index_hand = name[len(name) - 1]
                 name = name.replace(index_hand, f"{int(index_hand) + 1}")
                 print_cards(player[i], f"{name}")
+
+                balance_hands = play(player, dealer, players_stage) - balance
 
                 while True:
                     user_input = input("Choose option 'hit', 'stay' or 'q' - exit: ")
@@ -323,6 +323,7 @@ def play_round(num_players, balances, dibs):
         print_cards(player_1, f"{name} {i+1}")
 
         rate = []
+
         new_balance.append(play(player_1, dealer, rate))
         win_rate.append(rate)
         name = "Player"
@@ -336,8 +337,13 @@ def play_round(num_players, balances, dibs):
     return new_balance
 
 def print_balance(balances):
+    is_zero = False
     for i in range(len(balances)):
+        if balances[i] == 0:
+            is_zero = True
         print(f"{name} {i+1}: {balances[i]}")
+
+    return is_zero
 
 # цикл гри
 is_using_pairs = []
@@ -351,12 +357,21 @@ def game_cycle(start_game, num_player, balance):
         print_balance(balance)
 
         player_bid = []
-        for i in range(1, num_player + 1):
-            player_bid.append(get_num(f"Enter {name}'s {i} dib: "))
+        for i in range(num_player):
+            while True:
+                input_dib = get_num(f"Enter {name}'s {i+1} dib: ")
+
+                if input_dib > balance[i]:
+                    print(f"{input_dib} is bigger than your balance({balance[i]})")
+                    continue
+                player_bid.append(input_dib)
+                break
         balance = play_round(num_player, balance, player_bid)
 
+        #  Game over appear if all user exit or have a balance 0
         print(f"New Balance: ")
-        print_balance(balance)
+        if print_balance(balance): print("Game over")
+        break
 
         while True:
             check_continue = input("Continue? (yes/no): ")
