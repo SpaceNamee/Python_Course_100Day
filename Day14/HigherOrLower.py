@@ -1,22 +1,33 @@
+import numpy.random
+
 import ascii_art
 from game_data import data
+import random
 
 print(ascii_art.logo)
 score = 0
 start = True
+# Initialize array with first value which never be use but will save my structure with if score
+used_num = [-1]
 while start:
-    for i in range(2, len(data) - 1):
+    for i in range(0, len(data)):
         # print a comparable statement in different way that is up to starting game or not
         print("_______________________________________________________________________________________________________________")
-
         if score:
-            print(f"\nCompare A: {data[i]["name"]}, {data[i]["description"]}, from {data[i]["country"]}, with {data[i]["follower_count"]}M followers")
+            obj_a = used_num[i]
+            print(f"\nCompare A: {data[obj_a]["name"]}, {data[obj_a]["description"]}, from {data[obj_a]["country"]}, with {data[obj_a]["follower_count"]}M followers")
         else:
-            print(f"\nCompare A: {data[1]["name"]}, {data[1]["description"]}, from {data[1]["country"]}")
+            obj_a = random.randint(0, len(data))
+            print(f"\nCompare A: {data[obj_a]["name"]}, {data[obj_a]["description"]}, from {data[obj_a]["country"]}, with {data[obj_a]["follower_count"]}M followers")
 
         print(ascii_art.vs)
 
-        print(f"Against B: {data[i+1]["name"]}, {data[i+1]["description"]}, from {data[i+1]["country"]}")
+        while True:
+            obj_b = random.randint(0, len(data))
+            if obj_b != obj_a:
+                break
+
+        print(f"Against B: {data[obj_b]["name"]}, {data[obj_b]["description"]}, from {data[obj_b]["country"]}, with {data[obj_b]["follower_count"]}M followers")
 
         print("_______________________________________________________________________________________________________________")
         # Ask the player's answer
@@ -28,11 +39,17 @@ while start:
 
         # Define a true answer
         answer = 'B'
-        if data[i]["follower_count"] > data[i+1]["follower_count"] : answer = 'A'
+        if data[obj_a]["follower_count"] > data[obj_b]["follower_count"] : answer = 'A'
 
         # Compare true answer with player's answer
         if  user_input == answer:
             score += 1
+
+            if user_input == 'A':
+                used_num.append(obj_a)
+            else:
+                used_num.append(obj_b)
+
             print(f"New score: {score}")
         else:
             print("You loose.")
