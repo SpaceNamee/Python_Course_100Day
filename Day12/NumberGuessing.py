@@ -6,7 +6,7 @@ print(assci_art.welcoming)
 print("Guess the number. Number is between 1 to 1000")
 start = 1
 end = 1000
-num = randint(start, end+1)
+num = randint(start, end)
 print(num)
 while True:
     user_input = int(input("Enter number: "))
