@@ -15,7 +15,7 @@ class QuizBrain:
         return self.question_number != len(self.question_list)
 
     def check_answer(self, user_answer, correct_answer):
-        if user_answer.lower() == correct_answer.lower():
+        if user_answer.lower() == correct_answer.lower() or user_answer.lower() == correct_answer[0].lower():
             print("You got it right!")
             self.score += 1
         else:
