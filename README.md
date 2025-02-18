@@ -6,3 +6,6 @@ Day1:
 ~import turtle~
 Day 20 
     Coding snake game
+
+Day 22
+    Coding pang game
