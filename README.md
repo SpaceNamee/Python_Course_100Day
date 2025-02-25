@@ -29,5 +29,6 @@ Day 28
 Day 29
     Coding Password Manager
     --Error handling--
+    --JSON--
 Day 30
     Edit NATO project
