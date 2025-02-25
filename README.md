@@ -28,3 +28,6 @@ Day 28
     Coding Pomodoro App
 Day 29
     Coding Password Manager
+    --Error handling--
+Day 30
+    Edit NATO project
