@@ -1,3 +1,5 @@
+import pandas
+
 student_dict = {
     "student": ["Angela", "James", "Lily"], 
     "score": [56, 76, 98]
@@ -8,7 +10,6 @@ for (key, value) in student_dict.items():
     #Access key and value
     pass
 
-import pandas
 student_data_frame = pandas.DataFrame(student_dict)
 
 #Loop through rows of a data frame
@@ -23,6 +24,14 @@ for (index, row) in student_data_frame.iterrows():
 data = pandas.read_csv("nato_phonetic_alphabet.csv")
 new_dict = {row.letter:row.code for (index, row) in data.iterrows()}
 
-user_name = input("User name: ")
-for i in range(len(user_name)):
-    print(user_name[i] + " : " + new_dict[user_name[i].upper()])
+def generate_phonetic():
+    user_name = input("User name: ")
+    try:
+        output_list = [new_dict[letter] for letter in user_name]
+    except KeyError:
+        print("Invalid input.")
+        generate_phonetic()
+    else:
+        print(output_list)
+
+generate_phonetic()
