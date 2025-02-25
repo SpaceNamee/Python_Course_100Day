@@ -1,7 +1,11 @@
+import tkinter.messagebox
 from tkinter import *
 from tkinter import messagebox
 import pyperclip
-
+import json
+# write  | json.dump()
+# read   | json.load()
+# Update | json.update()
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #Password Generator Project
 import random
@@ -37,24 +41,56 @@ def save_data():
     web = entry_website.get()
     name = entry_name.get()
     passw = entry_password.get()
+
+    new_data = {
+        web: {
+            "name":name,
+            "password":passw,
+        }
+    }
     is_ok = messagebox.askokcancel(title="Info",
                                    message=f"Save website: {web}\n Name/email: {name}\n Password: {passw}?")
+
     if (web != '' and passw != ''  and  name != "") and is_ok:
-        with open("key.txt", mode="a") as memory:
-            memory.write(f"{web} | {name} | {passw}\n")
+        try:
+            with open("key.json", "r") as memory:
+                data = json.load(memory)
+        except:
+            with open("key.json", "w") as memory:
+                json.dump(new_data, memory, indent=4)
+        else:
+            data.update(new_data)
+
+            with open("key.json", "w") as memory:
+                json.dump(data, memory, indent=4)
+
         messagebox.showinfo(title="Info", message="Saving succeed")
     else:
         messagebox.showinfo(title="ERROR", message="Your input is not valid.")
 
         entry_website.delete(0, END)
         entry_password.delete(0, END)
+# ---------------------------- Find Password ------------------------------- #
 
+def find_password():
+    website = entry_website.get()
 
-
-
-
+    try:
+        with open("key.json", "r") as file:
+            data = json.load(file)
+        name = data[website]["name"]
+        password = data[website]["password"]
+    except KeyError:
+        messagebox.showerror(message="No such data.")
+    except FileNotFoundError:
+        messagebox.showerror(message="Your history is empty.")
+    else:
+        messagebox.showinfo(title=website, message=f"Name: {name} \nPassword: {password}")
 
 # ---------------------------- UI SETUP ------------------------------- #
+# with open("key.json", "r") as file:
+#     data = json.load(file)
+# print(data["Instagram"]["password"])
 
 window = Tk()
 window.title("Password Manager")
@@ -74,8 +110,8 @@ label_name.grid(column=1, row=3, sticky="e")
 label_password = Label(text="Password: ", font=("Arial", 14, "normal"))
 label_password.grid(column=1, row=4, sticky="e ")
 
-entry_website = Entry(width=50)
-entry_website.grid(column=2, row=2, columnspan=2, sticky="w")
+entry_website = Entry(width=30)
+entry_website.grid(column=2, row=2, sticky="w")
 entry_website.focus()
 
 entry_name = Entry(width=50)
@@ -90,5 +126,8 @@ btn_generator_pass.grid(column=3, row=4, sticky="w")
 
 btn_add = Button(text="Add", width=40,highlightthickness=0, command=save_data)
 btn_add.grid(column=2, row=5,columnspan=2)
+
+btn_search = Button(text="Search", font=("Arial", 8, "normal"), width=15, command=find_password)
+btn_search.grid(column=3, row=2, sticky="w")
 
 window.mainloop()
