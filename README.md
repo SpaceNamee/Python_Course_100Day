@@ -22,10 +22,10 @@ Day 26
 
 ~import tkinter~
 Day 27
-    Get familiarize with tkinter
+    Get familiar with tkinter
     Coding calculator
 Day 28
-    Coding Pomodoro App
+    Coding the Pomodoro App
 Day 29
     Coding Password Manager
     --Error handling--
