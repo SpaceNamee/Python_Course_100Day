@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4de4f0fe-409e-4a70-b8e8-dda1f838e2c7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/100_day_course_Udemy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/100_day_course_Udemy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/Birthday Wisher (Day 32) start/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/Birthday Wisher (Day 32) start/quotes.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/birthdays.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/letter_templates/letter_1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/letter_templates/letter_2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/letter_templates/letter_3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Day32/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,22 +22,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2tce2uMSJFhkc9WDKYJ8MB2uTRm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
