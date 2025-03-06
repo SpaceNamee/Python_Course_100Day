@@ -54,3 +54,24 @@ Coding Password Manager
 Day 30
 
 Edit NATO project
+
+Day 31
+
+Flash Cards
+
+Day 32
+
+    ~import smtplib~
+    ~import datetime~
+
+Birthday Wisher
+
+Day 33
+
+    API
+Kanye Quotes
+ISS overhead notification
+
+Day 34
+    
+
