@@ -1,10 +1,8 @@
 import requests
 from datetime import datetime
-import os
-from dotenv import load_dotenv 
 
-APP_ID = os.getenv("APP_ID")
-API_KEY = os.getenv("API_KEY")
+APP_ID = "a30009c1"
+API_KEY = "7ea7cea77a240ea7873c65efb14e5bb1"
 
 GENDER = "female"
 WEIGHT_KG = "55"
