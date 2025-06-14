@@ -7,7 +7,7 @@ print(random_number)
 
 app = Flask(__name__)
 
-
+# Add a route for the home page
 @app.route('/')
 def home():
     return "<h1>Guess a number between 0 and 9</h1>" \
