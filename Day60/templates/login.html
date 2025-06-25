@@ -1,0 +1,17 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html-forms</title>
+</head>
+<body>
+    <form action="{{ url_for('receive_data') }}" method="post">
+        <label for="name">Enter name</label>
+        <input type="name" name="name" placeholder="Enter your name"  size="30" required>
+
+        <label>Enter password</label>
+        <input type="password" name="password" placeholder="Enter your password" size="30" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
