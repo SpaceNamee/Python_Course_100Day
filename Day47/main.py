@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import os
+import dotenv
 from dotenv import load_dotenv
 from smtplib import SMTP
 
