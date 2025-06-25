@@ -78,3 +78,10 @@ Day 34
 
 Coding "Question quiz" with UI and get question by API
 
+Day 60
+
+    from flask import Flask, url_for, render_template, request
+
+    I created website in Bootstrap, added contact page and implemented get and post methods for /contact url. Also I added feacher for email sending to owner email with client request.
+
+   
