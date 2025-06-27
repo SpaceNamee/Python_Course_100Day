@@ -68,7 +68,7 @@ def send_email(firstName, lastName, email_, country ):
             from_addr = OWN_EMAIL,
             to_addrs = OWN_EMAIL,   
             msg = f"Subject:Client\n\nName: {firstName} {lastName}\nEmail: {email_}\nCountry: {country}"
-        )
+        )   
 
 if __name__ == "__main__":
     app.run(debug=True) 
