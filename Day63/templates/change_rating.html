@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Change Book Rating</h1>
+    <p>Book name: {{ book.title }}</p>
+    <p>Current rating: {{ book.review }}</p>
+
+    <form action="" method="POST">
+        <label for="new_rating">New Rating</label>
+        <input name="new_rating" type="text" required />
+        <button type="submit">Change Rating</button>
+    </form>
+</body>
+</html>
+
