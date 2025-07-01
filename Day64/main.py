@@ -9,6 +9,9 @@ from wtforms.validators import DataRequired
 import requests
 
 
+API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzQxZGU5ZTgyYzM0ZDZmNDkzYjA0ODJjNGExNTRjOSIsIm5iZiI6MTc1MTMxNjAwNi44MjUsInN1YiI6IjY4NjJmNjI2MThkMmQ5YjA4ZDA4OTM2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ud-9tTEYkDvwImZoKRaofQ9oCtKhZ511P9G7R2_6W8I"
+API_KEY = "bc41de9e82c34d6f493b0482c4a154c9"
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
@@ -28,12 +31,12 @@ class Movie(db.Model):
     year : Mapped[int] = mapped_column(Integer, nullable=False)
     description: Mapped[str] = mapped_column(String(500), nullable= False)
     rating: Mapped[float] = mapped_column(Float, nullable=False)
-    ranking: Mapped[int] = mapped_column(Integer, nullable=True)
     review: Mapped[str] = mapped_column(String(250), nullable=True)
     img_url: Mapped[str] = mapped_column(String(250), nullable=True)
 
 class AddMovieForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
+    submit = SubmitField("Add Movie")
 
 class EditForm(FlaskForm):
     rating = FloatField("Rating", validators=[DataRequired()])
@@ -80,25 +83,60 @@ def delete(idx_book):
 @app.route("/add", methods=["POST", "GET"] )
 def add_():
     form = AddMovieForm()
+
+    if request.method == "POST":
+        url = "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1"
+
+        headers = {
+            "accept": "application/json",
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzQxZGU5ZTgyYzM0ZDZmNDkzYjA0ODJjNGExNTRjOSIsIm5iZiI6MTc1MTMxNjAwNi44MjUsInN1YiI6IjY4NjJmNjI2MThkMmQ5YjA4ZDA4OTM2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ud-9tTEYkDvwImZoKRaofQ9oCtKhZ511P9G7R2_6W8I"
+        } 
+        params = {
+            "query": form.title.data,
+        }
+
+        response = requests.get(url, headers=headers, params=params)
+        titles = [(res['original_title'],res['release_date'],res['id'] ) for res in response.json()['results']]
+        return render_template('select.html', movies = titles)
+   
+
     return render_template('add.html', form=form)
-    # if request.method == "POST":
-        
-        # new_book = request.form["book"]
-        # year = request.form["year"]
-        # description = request.form["description"]
-        # rating = request.form['rating']
-        # review = request.form['review']
-        # img_url = request.form['img_url']
-
-        # new_movie = Movie(title=new_book, year=year, description=description, rating=rating, review=review, img_url=img_url)
-        
-        # with app.app_context():
-        #     db.create_all()
-        #     db.session.add(new_movie)  
-        #     db.session.commit()
-
-        # return redirect(url_for('home'))
     
-    
+@app.route("/add_by_id/<id>")
+def add_movie_id(id):
+    if request.method == "POST":
+        rating = form.rating.data
+        review = form.review.data
+
+        movie = db.session.execute(db.select(Movie).where(Movie.id == int(id))).scalar()
+        movie.rating = rating
+        movie.review = review
+        db.session.commit()
+
+        return redirect(url_for('home'))
+    url = f"https://api.themoviedb.org/3/movie/{id}?language=en-US"
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzQxZGU5ZTgyYzM0ZDZmNDkzYjA0ODJjNGExNTRjOSIsIm5iZiI6MTc1MTMxNjAwNi44MjUsInN1YiI6IjY4NjJmNjI2MThkMmQ5YjA4ZDA4OTM2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ud-9tTEYkDvwImZoKRaofQ9oCtKhZ511P9G7R2_6W8I"
+    } 
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+
+    title = data['original_title']
+    year = data['release_date']
+    description = data['overview']
+    img_url = f"https://image.tmdb.org/t/p/w500{data['poster_path']}"
+    rating = data['vote_average']
+    review = "None"
+
+    db.session.add(Movie(title=title, year=year, description=description, img_url=img_url, rating=rating, review=review))
+    db.session.commit()
+    form = EditForm()
+    return render_template('edit.html', form=form, book_title=title)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
