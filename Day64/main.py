@@ -101,6 +101,7 @@ def add_():
     
 @app.route("/add_by_id/<id>")
 def add_movie_id(id):
+    form = EditForm()   
     if request.method == "POST":
         rating = form.rating.data
         review = form.review.data
@@ -127,7 +128,6 @@ def add_movie_id(id):
     img_url = f"https://image.tmdb.org/t/p/w500{data['poster_path']}"
     rating = data['vote_average']
     review = "None"
-
 
     db.session.add(Movie(title=title, year=year, description=description, img_url=img_url, rating=rating, review=review))
     db.session.commit()
