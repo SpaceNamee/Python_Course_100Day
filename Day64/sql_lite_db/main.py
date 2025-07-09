@@ -9,13 +9,13 @@ from wtforms.validators import DataRequired
 import requests
 import os
 
-# BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-# print(BASE_DIR)
+BASE_DIR = "d:\MyPython\Python_Course_100Day\Day64\\"
 
 API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzQxZGU5ZTgyYzM0ZDZmNDkzYjA0ODJjNGExNTRjOSIsIm5iZiI6MTc1MTMxNjAwNi44MjUsInN1YiI6IjY4NjJmNjI2MThkMmQ5YjA4ZDA4OTM2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ud-9tTEYkDvwImZoKRaofQ9oCtKhZ511P9G7R2_6W8I"
 API_KEY = "bc41de9e82c34d6f493b0482c4a154c9"
 
-app  = Flask(__name__,  template_folder=os.path.join("d:\MyPython\Python_Course_100Day\Day64\\", "templates"), static_folder=os.path.join("d:\MyPython\Python_Course_100Day\Day64\\", "static"))
+app = Flask(__name__,  template_folder=os.path.join(BASE_DIR,"templates"), static_folder=os.path.join(BASE_DIR, "static"), )
+
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 Bootstrap5(app)
 
@@ -70,7 +70,7 @@ def update(idx_book):
         return redirect(url_for('home'))
 
     title = book.title
-    return render_template("../edit.html", book_title=title, form = form)
+    return render_template("edit.html", book_title=title, form = form)
 
 @app.route("/delete/<idx_book>", methods=["GET"])
 def delete(idx_book):
@@ -100,7 +100,7 @@ def add_():
         return render_template('../select.html', movies = titles)
    
 
-    return render_template('../add.html', form=form)
+    return render_template('add.html', form=form)
     
 @app.route("/add_by_id/<id>")
 def add_movie_id(id):
@@ -136,7 +136,7 @@ def add_movie_id(id):
     db.session.commit()
 
     idx_book = db.session.execute(db.select(Movie).where(Movie.title == title)).scalar().id
-    return redirect(url_for('../update', idx_book=idx_book))
+    return redirect(url_for('update', idx_book=idx_book))
 
 
 
