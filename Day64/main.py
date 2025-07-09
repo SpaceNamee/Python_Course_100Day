@@ -50,10 +50,7 @@ def create_app():
 @app.route("/")
 def home():
     create_app()
-    # example_movie = Movie(title="Example Movie 3", year=2023, description="This is an example movie 2.", rating=8.5, ranking=1, review="Great movie!", img_url="/static/img/f.jfif")
-    # db.session.add(example_movie)
-    # db.session.commit()
-    books = db.session.execute(db.select(Movie)).scalars().all()
+    books = db.session.execute(db.select(Movie).order_by(Movie.rating.desc())).scalars().all()
     return render_template("index.html", books = books)
 
 @app.route("/update/<idx_book>", methods=["POST", "GET"])
@@ -63,7 +60,7 @@ def update(idx_book):
 
     if book == None:
         return redirect(url_for('home'))
-    if form.validate_on_submit():
+    if request.method == "POST":
         book.rating = form.rating.data
         book.review = form.review.data
         db.session.commit()
@@ -131,10 +128,12 @@ def add_movie_id(id):
     rating = data['vote_average']
     review = "None"
 
+
     db.session.add(Movie(title=title, year=year, description=description, img_url=img_url, rating=rating, review=review))
     db.session.commit()
-    form = EditForm()
-    return render_template('edit.html', form=form, book_title=title)
+
+    idx_book = db.session.execute(db.select(Movie).where(Movie.title == title)).scalar().id
+    return redirect(url_for('update', idx_book=idx_book))
 
 
 

@@ -6,11 +6,12 @@
 <div class="container">
   <h1 class="heading">My Top 10 Movies</h1>
   <p class="description">Thes e are my all-time favourite movies.</p>
-   
+
+
 {% for book in books %}
   <div class="card" style="min-width: 300px;" >
     <div class="front" style="background-image: url('static/img/leaves-6640617_1280.webp');">
-        <p class="large">{{ book.id }}</p>
+        <p class="large">{{ loop.index }}</p>
     </div>
     <div class="back">
       <div>
