@@ -97,7 +97,7 @@ def add_():
 
         response = requests.get(url, headers=headers, params=params)
         titles = [(res['original_title'],res['release_date'],res['id'] ) for res in response.json()['results']]
-        return render_template('../select.html', movies = titles)
+        return render_template('select.html', movies = titles)
    
 
     return render_template('add.html', form=form)
