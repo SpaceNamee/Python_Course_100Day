@@ -22,7 +22,6 @@ class Books(db.Model):
 
 all_books = []
 
-
 @app.route('/')
 def home():
     with app.app_context():
