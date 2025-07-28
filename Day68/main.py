@@ -7,6 +7,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, UserMixin
+from sqlalchemy.exc import IntegrityError
 
 # CREATE LOGIN MANEGER
 login_manager = LoginManager()
@@ -43,11 +44,9 @@ class User(db.Model, UserMixin):
     name: Mapped[str] = mapped_column(String(1000))
 
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.execute(db.select(User).where(User.id==user_id)).scalar_one_or_none()
-
 
 with app.app_context():
     db.create_all()
@@ -55,7 +54,7 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template("index.html", logged_in=current_user.is_authenticated)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -73,34 +72,39 @@ def register():
         )
         login_user(new_user)
         flash("Successfully registered and logged in!")
-        db.session.add(new_user)
-
-        db.session.commit()
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+        except IntegrityError as e:
+            error = "Email already exists. Just login"
+            return render_template("login.html", error=error)
 
         return render_template("secrets.html", name=name)
-    return render_template("register.html")
+    return render_template("register.html", logged_in=current_user.is_authenticated)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error  = None
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
         user = db.session.execute(db.select(User).where(User.email==email)).scalar_one_or_none()
-        print(user.name)
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            print("Successfully logged in!")
-            return redirect(url_for('secrets', name=user.name), )
+        if user is None:
+            error = "Email does not exist."
+        elif check_password_hash(user.password, password) is False:
+            error = "Password is incorrect."
         else:
-            print("Login failed. Please check your email and password.")
-    return render_template("login.html")
+            flash("Successfully logged in!")
+            login_user(user)
+            return redirect(url_for('secrets', name=user.name), )
+    return render_template("login.html", error=error, logged_in=current_user.is_authenticated)
 
 
 @app.route('/secrets/<name>')
 @login_required
 def secrets(name):
-    return render_template("secrets.html", name=name)
+    return render_template("secrets.html", name=name, logged_in=True)
 
 
 @app.route('/logout')
