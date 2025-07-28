@@ -110,7 +110,7 @@ def add_cafe():
         has_wifi=bool(request.form.get("has_wifi")),
         can_take_calls=bool(request.form.get("can_take_calls")),
         seats=request.form.get("seats"),
-        coffee_price=request.form.get("coffee_price "),
+        coffee_price=request.form.get("coffee_price"),
     )   
         
     db.session.add(new_cafe)
