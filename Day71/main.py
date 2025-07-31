@@ -16,7 +16,6 @@ from dotenv import load_dotenv
 import os
 from email.mime.text import MIMEText 
 
-load_dotenv()
 '''
 Make sure the required packages are installed: 
 Open the Terminal in PyCharm (bottom left). 
@@ -29,7 +28,8 @@ pip3 install -r requirements.txt
 
 This will install the packages from the requirements.txt for this project.
 '''
-
+load_dotenv()
+dir_path = os.path.join((os.path.dirname(os.path.abspath(__file__))), "instance") # get path to new folder for database
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -59,7 +59,7 @@ gravatar = Gravatar(app,
 # CREATE DATABASE
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{dir_path}/posts.db'
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
