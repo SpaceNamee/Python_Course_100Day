@@ -1,20 +1,24 @@
-from datetime import date
 from flask import Flask, abort, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
-from flask_gravatar import Gravatar
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
+# get relationship func for link within data tables
 from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
+# get ForeignKey for linking data tables
 from sqlalchemy import Integer, String, Text, ForeignKey
-from functools import wraps
+from typing import List
+# get wraps for decorator
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
+# get IntegrityError for error handling
 from sqlalchemy.exc import IntegrityError
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-from typing import List
+from flask_gravatar import Gravatar
+import os
+# get date module
+from datetime import date
+from functools import wraps
 
-dir_path = os.path.join((os.path.dirname(os.path.abspath(__file__))), "instance")
 '''
 Make sure the required packages are installed: 
 Open the Terminal in PyCharm (bottom left). 
@@ -28,12 +32,14 @@ pip3 install -r requirements.txt
 This will install the packages from the requirements.txt for this project.
 '''
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+
+dir_path = os.path.join((os.path.dirname(os.path.abspath(__file__))), "instance") # get path to new folder for database
+
+app = Flask(__name__) 
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b' # set secret_key to enhance cookies security
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
-# TODO: Configure Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
