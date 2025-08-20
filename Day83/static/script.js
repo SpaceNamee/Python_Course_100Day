@@ -1,15 +1,15 @@
-// // Get the container element
-// var btnContainer = document.getElementById("navId");
+    const list = document.getElementById("itemList");
+    const displayImg = document.getElementById("displayImg");
 
-// // Get all buttons with class="btn" inside the container
-// var btns = btnContainer.getElementsByClassName("nav-link");
+    list.addEventListener("mouseover", function(e) {
+      if (e.target && e.target.nodeName === "LI") {
+        // get the img path from data attribute
+        const imgPath = e.target.getAttribute("data-img");
+        displayImg.src = imgPath;
+        displayImg.style.display = "block";
+      }
+    });
 
-// // Loop through the buttons and add the active class to the current/clicked button
-// for (var i = 0; i < btns.length; i++) {
-//   btns[i].addEventListener("click", function() {
-//     var current = document.getElementsByClassName("active");
-//     current[0].className = current[0].className.replace(" active", "");
-//     this.className += " active";
-//   });
-// }
-
+    list.addEventListener("mouseleave", function() {
+      displayImg.style.display = "none"; // hide image when not hovering
+    });

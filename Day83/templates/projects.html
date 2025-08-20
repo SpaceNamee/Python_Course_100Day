@@ -1,44 +1,46 @@
 {% extends "base.html" %}
 {% block title %}Projects{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="project_list mt-5">
-        <div class="project_list__title ">
-            <p>Projects</p>
-        </div>
-        <ul class="project_list__list">
-            <li class="list_item">
-                <a>Project 1</a>
-            </li>
-            <li class="list_item">
-                <a>Project 2</a>
-            </li>
-            <li class="list_item">
-                <a>Project 3</a>
-            </li>
-            <li class="list_item">
-                <a>Project 4</a>
-            </li>
-            <li class="list_item">
-                <a>Project 5</a>
-            </li>
-            <li class="list_item">
-                <a>Project 6</a>
-            </li>
-            <li class="list_item">
-                <a>Project 7</a>
-            </li>
-            <li class="list_item">
-                <a>Project 8</a>
-            </li>
-            <li class="list_item">
-                <a>Project 9</a>
-            </li>
-            <li class="list_item">
-                <a>Project 10</a>
-            </li>
-        </ul>
-    </div>
-
+<div class="container d-flex flex-row">
+   <div id="itemList" class="project_list mt-5">
+      <div class="project_list__title flex-shrink-1">
+         <p>Projects</p>
+      </div>
+      <ul class="project_list__list flex-shrink-1">
+         <li class="list_item item1" data-img="../static/img/photo_2025-08-20_17-24-08.jpg">
+            <a href="http://google.com" target="_blank">Project 1</a>
+         </li>
+         <li class="list_item item2" data-img="../static/img/photo_2025-08-20_17-24-29.jpg">
+            <a href="http://google.com" target="_blank">Project 2</a>
+         </li>
+         <li class="list_item item3" data-img="../static/img/photo_2025-08-20_17-24-44.jpg">
+            <a href="http://google.com" target="_blank">Project 3</a>
+         </li>
+         <li class="list_item item4" data-img="../static/img/photo_2025-08-20_17-25-14.jpg">
+            <a href="http://google.com" target="_blank">Project 4</a>
+         </li>
+         <li class="list_item item5" data-img="../static/img/photo_2025-08-20_17-25-35.jpg">
+            <a href="http://google.com" target="_blank">Project 5</a>
+         </li>
+         <li class="list_item item6" data-img="../static/img/photo_2025-08-20_17-24-29.jpg">
+            <a href="http://google.com" target="_blank">Project 6</a>
+         </li>
+         <li class="list_item item7" data-img="../static/img/photo_2025-08-20_17-24-44.jpg">
+            <a href="http://google.com" target="_blank">Project 7</a>
+         </li>
+         <li class="list_item item8" data-img="../static/img/photo_2025-08-20_17-24-08.jpg">
+            <a href="http://google.com" target="_blank>Project 8</a>
+        </li>
+         <li class="list_item item9" data-img="../static/img/photo_2025-08-20_17-24-08.jpg">
+            <a href="http://google.com" target="_blank">Project 9</a>
+         </li>
+         <li class="list_item item10" data-img="../static/img/photo_2025-08-20_17-24-08.jpg">
+            <a href="http://google.com" target="_blank">Project 10</a>
+         </li>
+      </ul>
+   </div>
+   <div class="img_project align-self-center">
+      <img id='displayImg' style="width: 800px; height: auto; display: none;" alt="Project Image" class="img">
+   </div>
 </div>
 {% endblock %}

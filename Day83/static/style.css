@@ -80,10 +80,40 @@ header {
 
 /* Projects list */
 .project_list{
-    margin-bottom: 30px;
     max-width: 300px;
-    min-height: 100%;
 }
 .project_list__list{
     line-height: 40px;
+}
+
+.img_project{
+    max-width: 80%;
+    margin: 0 auto;
+    /* height: auto; */
+}
+
+.project_list__list a:hover{
+    color:white;
+}
+
+.list_item {
+    animation: fade-up 1s;
+}
+
+.project_list__title {
+    animation: fade-up 1s;
+}
+
+#displayImg {
+    animation: fade-up 1s;
+}
+
+.img_{
+    width: 1000px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.img_section{
 }

@@ -12,7 +12,6 @@ Bootstrap5(app)
 def home():
     return render_template("index.html", active_page="home")
 
-
 @app.route("/projects/")
 def projects():
     return render_template("projects.html", active_page="projects")
