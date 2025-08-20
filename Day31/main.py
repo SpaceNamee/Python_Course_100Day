@@ -2,15 +2,10 @@ from tkinter import *
 from tkinter import messagebox
 from pandas import *
 import random
-
+import asyncio
 BACKGROUND_COLOR = "#B1DDC6"
 
-# ------------------------ Read Data ---------------------------- #
-vocabulary = read_csv("data/french_words.csv")
-column_names = vocabulary.columns.to_list()
-from_lang = column_names[0]
-to_lang = column_names[1]
-pair_of_word = []
+
 # ------------------------ Generate words ---------------------------- #
 def generate_words():
 
@@ -58,31 +53,43 @@ def flip_to_back(word):
     btn_wrong.config(state=DISABLED)
     btn_right.config(state=DISABLED)
     window.after(1500, flip_to_front, word)
-# ------------------------ UI ---------------------------- #
-window = Tk()
-window.title("Flash Cards")
-
-window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
-
-img_background = PhotoImage(file="images/card_back.png")
-img_front = PhotoImage(file="images/card_front.png")
-background_canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
-hand_of_cards = background_canvas.create_image(400, 260)
-language = background_canvas.create_text(400, 150, text="", font=("Arial", 40, "italic"))
-foreign_word = background_canvas.create_text(400, 263, text="", font=("Arial", 60, "bold"))
-background_canvas.grid(column=0, row=0, columnspan=2)
-
-# Buttons
-img_right = PhotoImage(file="images/right.png")
-btn_right = Button(image=img_right, highlightthickness=0, command=save_word)
-btn_right.grid(column=0, row=1)
-
-img_wrong = PhotoImage(file="images/wrong.png")
-btn_wrong = Button(image=img_wrong, highlightthickness=0, command=generate_words)
-btn_wrong.grid(column=1, row=1)
 
 
 
-generate_words()
+async def main():
+        # ------------------------ Read Data ---------------------------- #
+    vocabulary = read_csv("data/french_words.csv")
+    column_names = vocabulary.columns.to_list()
+    from_lang = column_names[0]
+    to_lang = column_names[1]
+    pair_of_word = []
 
-window.mainloop()
+    # ------------------------ UI ---------------------------- #
+    window = Tk()
+    window.title("Flash Cards")
+
+    window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
+
+    img_background = PhotoImage(file="images/card_back.png")
+    img_front = PhotoImage(file="images/card_front.png")
+    background_canvas = Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
+    hand_of_cards = background_canvas.create_image(400, 260)
+    language = background_canvas.create_text(400, 150, text="", font=("Arial", 40, "italic"))
+    foreign_word = background_canvas.create_text(400, 263, text="", font=("Arial", 60, "bold"))
+    background_canvas.grid(column=0, row=0, columnspan=2)
+
+    # Buttons
+    img_right = PhotoImage(file="images/right.png")
+    btn_right = Button(image=img_right, highlightthickness=0, command=save_word)
+    btn_right.grid(column=0, row=1)
+
+    img_wrong = PhotoImage(file="images/wrong.png")
+    btn_wrong = Button(image=img_wrong, highlightthickness=0, command=generate_words)
+    btn_wrong.grid(column=1, row=1)
+    generate_words()
+    window.mainloop()
+
+    await asyncio.sleep(0)
+# generate_words()
+
+asyncio.run(main())

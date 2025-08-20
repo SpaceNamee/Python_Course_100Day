@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+   <div class="welcome_text text-center">
+      <h1> Hi, I am a Python Backend Developer</h1>
+      <p>Scroll down to discover my chops</p>
+   </div>
+   <!-- Add icon grid from bootstrap template -->
+   <div class="icon_grid container px-4 py-5" id="icon-grid">
+      <h2 class="icon_grid_title pb-2 border-bottom text-success text-center">I am good at</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#bootstrap"></use>
+            </svg>
+            <!-- Add  "icon_grid_text_box". It is designed for good visualization when hovering the cursor over the grid.-->
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">Python</h3>
+               <p>I've done many projects small and not during the course on Udemy and at university</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#cpu-fill"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">Django/Flask</h3>
+               <p>I have excelent projects on Django which were designed for client. Also I have pet projects on Flask also!</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#calendar3"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">HTML</h3>
+               <p>To build all of my websites I use Html.</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#home"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">CSS</h3>
+               <p>Which website can be without Css!</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#speedometer2"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">JS</h3>
+               <p>I have had excelent course for JS and I use it in my every projects too.</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#toggles2"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">Bootstrap</h3>
+               <p>I've had some projects on Bootstrap also</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#geo-fill"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">Patience</h3>
+               <p>An excelent product can not be without patience. A fully-fledget developer can not be impatience</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+         <div class="icon_grid_item col d-flex align-items-start">
+            <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em" aria-hidden="true">
+               <use xlink:href="#tools"></use>
+            </svg>
+            <div class="icon_grid_text_box">
+               <h3 class="fw-bold mb-0 fs-4 text-success">Reliable</h3>
+               <p>When you rely on yourself, other people rely on you too!</p>
+               <a class="item_arrow" href="#" style="display: block; text-align: right;"><i style="font-size: 32px; " class="las la-angle-double-right"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

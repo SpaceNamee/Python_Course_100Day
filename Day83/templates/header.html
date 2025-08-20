@@ -1,0 +1,13 @@
+<header class="bg-primary">
+  <div class="container" >
+   <div class="d-flex justify-content-center py-3 ">
+      <ul class="nav nav-pills">
+         <li class="nav-item"><a href="{{ url_for('home') }}"     class="nav-link {% if active_page == 'home'%} active {% endif %}">Home</a></li>
+         <li class="nav-item"><a href="{{ url_for('projects') }}" class="nav-link {% if active_page == 'projects'%} active {% endif %}">Projects</a></li>
+         <li class="nav-item"><a href="{{ url_for('about_me') }}" class="nav-link {% if active_page == 'about_me'%} active {% endif %}">About Me</a></li>
+         <li class="nav-item"><a href="{{ url_for('fqs') }}"      class="nav-link {% if active_page == 'fqs'%} active {% endif %}">FAQs</a></li>
+         <li class="nav-item"><a href="{{ url_for('contact') }}" class="nav-link {% if active_page == 'contact'%} active {% endif %}">Contacts</a></li>
+      </ul>
+    </div>
+  </div>  
+</header>

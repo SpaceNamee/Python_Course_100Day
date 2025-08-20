@@ -1,0 +1,89 @@
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type:none;
+    padding: 0;
+}
+
+.icon_grid_item:hover {
+    color: inherit;
+    background-color: #170229;
+}
+
+.item_arrow{
+    visibility: hidden;
+    opacity: 0; /* Ensures it's fully transparent */
+    transition: visibility 0s linear 0.3s, opacity 0.3s linear; /* add a fade-in effect */
+}
+.icon_grid_item:hover{
+    .item_arrow{
+        visibility: visible; /* Makes the element visible on hover */
+        opacity: 1; /* Makes it fully opaque */
+        transition: visibility 0s linear, opacity 0.3s linear; /* Optional: adds a fade-in effect */
+    }
+}
+
+
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(+30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+
+header {
+    animation: fade-down 1s;
+}
+
+.welcome_text {
+    animation: fade-up 1s;
+    margin: 150px 0 100px 0;
+    border-bottom: 1px solid #198754;
+
+}
+
+.icon_grid {
+    animation: fade-up 1s;
+}
+.icon_grid_title{
+    border: 1px solid #198754;
+}
+
+.icon_grid_text_box {
+    padding-right: 40px;
+    padding-top: 20px;
+}
+
+.social-icon {
+    font-size: 36px;
+    color:white
+}
+
+/* Projects list */
+.project_list{
+    margin-bottom: 30px;
+    max-width: 300px;
+    min-height: 100%;
+}
+.project_list__list{
+    line-height: 40px;
+}
