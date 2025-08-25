@@ -72,8 +72,6 @@ class Player:
         self.score += 1
 
 
-
-
 class AIPlayer(Player):
     def __init__(self, symbol):
         super().__init__(name="Computer", symbol=symbol)

@@ -28,7 +28,6 @@ def run(player_1, player_2):
             print(f"Scores: {player_1.name} - {player_1.score}, {player_2.name} - {player_2.score}")
             break
         
-
         turn += 1
 
 def new_game(ai=False):
@@ -66,7 +65,6 @@ def start_game():
             players = start_game()
         elif option_game == "1":
             run(players[0], players[1])
-
 
 
 if __name__ == "__main__":
